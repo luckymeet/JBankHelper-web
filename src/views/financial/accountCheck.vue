@@ -32,6 +32,8 @@
           <el-table-column label="逆时账未匹配数据">
             <el-table-column type="index" width="50" label="序号">
             </el-table-column>
+            <el-table-column prop="tradeNo" label="交易流水号" width="180">
+            </el-table-column>
             <el-table-column prop="accName" label="账户" width="180">
             </el-table-column>
             <el-table-column prop="opsAccName" label="对方账户" width="180">
@@ -51,6 +53,8 @@
         <el-table :data="sheetList1" border style="width: 100%;">
           <el-table-column label="银行流水未匹配数据">
             <el-table-column type="index" width="50" label="序号">
+            </el-table-column>
+            <el-table-column prop="tradeNo" label="交易流水号" width="180">
             </el-table-column>
             <el-table-column prop="accName" label="账户" width="180">
             </el-table-column>
@@ -109,19 +113,28 @@
             });
         },
         exportResult() {
-          this.$ajax({
-                url: "/financial/account-check/list" + "?type=" + this.pickOpsAcc + this.pickDateType,
-                method: "get"
-            }).then(res => {
-                if (res && res.code === 200) {
-                    this.$message({
-                        message: "操作成功",
-                        type: "success",
-                        duration: 1500,
-                        onClose: () => {}
-                    });
-                }
-            });
+          window.open(this.$ajax.apiUrl("/financial/account-check/export") + "?type=" + this.pickOpsAcc + this.pickDateType);
+
+          // this.$ajax({
+          //       url: "/financial/account-check/export" + "?type=" + this.pickOpsAcc + this.pickDateType,
+          //       method: "get"
+          //   }).then(res => {
+          //       if (res && res.code === 200) {
+          //           this.$message({
+          //               message: "操作成功",
+          //               type: "success",
+          //               duration: 1500,
+          //               onClose: () => {}
+          //           });
+          //       } else {
+          //         this.$message({
+          //               message: res.message,
+          //               type: "error",
+          //               duration: 1500,
+          //               onClose: () => {}
+          //           });
+          //       }
+          //   });
         }
       }
     }
