@@ -8,7 +8,7 @@
           <div slot="tip" class="el-upload__tip">只能上传EXCEL文件</div>
         </el-upload>
         <div style="position:absolute;bottom:5px;">
-          <el-button type="success" icon="el-icon-circle-check" @click="dialogVisible = true">核 对</el-button>
+          <el-button type="success" icon="el-icon-circle-check" @click="dialogVisible = true;">核 对</el-button>
         </div>
         <el-dialog title="请选择核对要素" :visible.sync="dialogVisible" width="20%">
           <el-checkbox checked disabled>账户</el-checkbox><br>
@@ -24,10 +24,11 @@
         </el-dialog>
       </div>
     </div>
-    <div class="form-basic">
+    <div class="form-basic" v-show="showList">
       <h5>核对未匹配列表</h5>
       <div class="content">
-        <el-table :data="sheetList0" border style="width: 100%;">
+        <el-button type="primary" @click="exportResult">导出结果</el-button>
+        <el-table :data="sheetList0" border style="width: 100%;margin-top: 20px">
           <el-table-column label="逆时账未匹配数据">
             <el-table-column type="index" width="50" label="序号">
             </el-table-column>
@@ -75,6 +76,7 @@
         return {
           fileList: [],
           uploadUrl: this.$ajax.apiUrl("/financial/account-check/upload"),
+          showList: false,
           sheetList0: [],
           sheetList1: [],
           dialogVisible: false,
@@ -87,15 +89,31 @@
         handleExceed(files, fileList) {
           this.$message.warning(`只能上传1个文件`);
         },
-        async submitUpload() {
+        submitUpload() {
           this.dialogVisible = false;
           this.$ajax({
                 url: "/financial/account-check/list" + "?type=" + this.pickOpsAcc + this.pickDateType,
                 method: "get"
             }).then(res => {
                 if (res && res.code === 200) {
+                    this.showList = true
                     this.sheetList0 = res.data.sheetList0;
                     this.sheetList1 = res.data.sheetList1;
+                    this.$message({
+                        message: "操作成功",
+                        type: "success",
+                        duration: 1500,
+                        onClose: () => {}
+                    });
+                }
+            });
+        },
+        exportResult() {
+          this.$ajax({
+                url: "/financial/account-check/list" + "?type=" + this.pickOpsAcc + this.pickDateType,
+                method: "get"
+            }).then(res => {
+                if (res && res.code === 200) {
                     this.$message({
                         message: "操作成功",
                         type: "success",
