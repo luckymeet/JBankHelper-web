@@ -4,9 +4,10 @@
       <h5>流水核对</h5>
       <div class="content">
         <el-upload class="upload-demo" ref="upload" :action="uploadUrl" :auto-upload="true" :limit="1" :on-exceed="handleExceed" :file-list="fileList" accept=".xls,.xlsx">
-          <el-button size="small" type="primary">选择文件</el-button>
-          <div slot="tip" class="el-upload__tip">只能上传EXCEL文件</div>
+          <el-button size="small" type="primary">上传文件</el-button>
         </el-upload>
+        <el-link type="primary" href="/static/file/transactionFlowImport.xlsx" download="流水核对导入模版.xlsx">下载模板</el-link>
+        <div slot="tip" class="el-upload__tip">注：只能上传EXCEL文件</div>
         <div style="position:absolute;bottom:5px;">
           <el-button type="success" icon="el-icon-circle-check" @click="dialogVisible = true;">核 对</el-button>
         </div>
@@ -114,27 +115,6 @@
         },
         exportResult() {
           window.open(this.$ajax.apiUrl("/financial/account-check/export") + "?type=" + this.pickOpsAcc + this.pickDateType);
-
-          // this.$ajax({
-          //       url: "/financial/account-check/export" + "?type=" + this.pickOpsAcc + this.pickDateType,
-          //       method: "get"
-          //   }).then(res => {
-          //       if (res && res.code === 200) {
-          //           this.$message({
-          //               message: "操作成功",
-          //               type: "success",
-          //               duration: 1500,
-          //               onClose: () => {}
-          //           });
-          //       } else {
-          //         this.$message({
-          //               message: res.message,
-          //               type: "error",
-          //               duration: 1500,
-          //               onClose: () => {}
-          //           });
-          //       }
-          //   });
         }
       }
     }
