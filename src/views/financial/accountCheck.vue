@@ -29,6 +29,7 @@
       <h5>核对未匹配列表</h5>
       <div class="content">
         <el-button type="primary" @click="exportResult">导出结果</el-button>
+        <el-link id="download" type="primary" v-show="false" href="" download="对账结果.xlsx">下载模板</el-link>
         <el-table :data="sheetList0" border style="width: 100%;margin-top: 20px">
           <el-table-column label="逆时账未匹配数据">
             <el-table-column type="index" width="50" label="序号">
@@ -114,7 +115,10 @@
             });
         },
         exportResult() {
-          window.open(this.$ajax.apiUrl("/financial/account-check/export") + "?type=" + this.pickOpsAcc + this.pickDateType);
+          // window.open(this.$ajax.apiUrl("/financial/account-check/export") + "?type=" + this.pickOpsAcc + this.pickDateType);
+          var download = document.getElementById("download")
+          download.href = this.$ajax.apiUrl("/financial/account-check/export") + "?type=" + this.pickOpsAcc + this.pickDateType
+          download.click()
         }
       }
     }

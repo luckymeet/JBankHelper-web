@@ -45,10 +45,6 @@ service.interceptors.response.use(
     if (res.code === 200) {
       // 成功
       return res
-    } else if (res.code === 401) {
-      // 未授权
-      router.replace({ path: '/401' })
-      return Promise.reject()
     } else {
       Message({
         message: res.message || '抱歉！服务异常，请联系管理员',
