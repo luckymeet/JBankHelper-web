@@ -9,7 +9,7 @@
         <el-link type="primary" href="/static/file/transactionFlowImport.xlsx" download="流水核对导入模版.xlsx">下载模板</el-link>
         <div slot="tip" class="el-upload__tip">注：只能上传EXCEL文件</div>
         <div style="position:absolute;bottom:5px;">
-          <el-button type="success" icon="el-icon-circle-check" @click="dialogVisible = true;">核 对</el-button>
+          <el-button size="small" type="success" icon="el-icon-circle-check" @click="dialogVisible = true;">核 对</el-button>
         </div>
         <el-dialog title="请选择核对要素" :visible.sync="dialogVisible" width="20%">
           <el-checkbox checked disabled>账户</el-checkbox><br>
@@ -20,7 +20,7 @@
             <el-radio :label="2">月份</el-radio>
           </el-radio-group>
           <span slot="footer" class="dialog-footer">
-            <el-button type="primary" @click="submitUpload">确 定</el-button>
+            <el-button size="small" type="primary" @click="submitUpload">确 定</el-button>
           </span>
         </el-dialog>
       </div>
@@ -28,7 +28,7 @@
     <div class="form-basic" v-show="showList">
       <h5>核对未匹配列表</h5>
       <div class="content">
-        <el-button type="primary" @click="exportResult">导出结果</el-button>
+        <el-button size="small" type="primary" @click="exportResult">导出结果</el-button>
         <el-table :data="sheetList0" border style="width: 100%;margin-top: 20px">
           <el-table-column label="逆时账未匹配数据">
             <el-table-column type="index" width="50" label="序号">
